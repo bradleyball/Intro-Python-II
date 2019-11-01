@@ -1,5 +1,7 @@
 from room import Room
-print("working")
+from player import Player
+import random
+
 
 # Declare all the rooms
 
@@ -38,9 +40,82 @@ room['treasure'].s_to = room['narrow']
 # Main
 #
 
-player = input("Enter the name of your player: ")
-current_room = input(
-    "Choose your starting room:\n(F)oyer\n(O)verlook\n(O)utside")
+room_items = ["Sword", "Fishing Pole", "Dagger",
+              "Staff", "Magazine", "Computer", "Dictionary", "Cat", "Kittens", "Puppies", "Nail Filer", "Cheif Keef's dreadlocks"]
+
+exit = False
+player_name = None
+current_room = None
+player = None
+
+
+while not exit:
+
+    player_name = input("Enter the name of your player: ")
+
+    if player == '':
+        print("\n\n result: No name was typed for player!!\n\n")
+        continue
+
+    current_room = input(
+        "\nChoose your starting room:\n\n(F)oyer\n(Ov)erlook\n(O)utside\n(E)xit\n>>>")
+
+    current_room = current_room.lower().strip()
+
+    if current_room == '':
+        print("\n\n result: No room was selected!\n\n")
+        continue
+    current_room = current_room[0:2]
+
+    if current_room == "ov":
+        current_room = "overlook"
+    elif current_room[0] == "o":
+        current_room = "outside"
+    elif current_room[0] == "f":
+        current_room = "foyer"
+
+    break
+
+player = Player(player_name, current_room)
+
+
+while player.current_room != "treasure":
+
+    direction = input(
+        f"\nYou are currently in the {player.current_room} room, which direction do you want to go?\n\n(N)orth\n(S)outh\n(E)ast\n(W)est\n>>>")
+
+    direction = direction.lower().strip()
+    print(direction)
+    if direction == '':
+        print(
+            f"\n\n result: No direction was selected! You are still in room {player.current_room} \n\n")
+        continue
+
+    elif direction[0] == "n":
+        player.set_room("n")
+        player.set_items(random.choice(room_items))
+        print(player.print)
+        print(f"You found a new item: {player.items[-1]}!")
+        continue
+    elif direction[0] == "s":
+        player.set_room("s")
+        player.set_items(random.choice(room_items))
+        print(player.print)
+        print(f"You found a new item: {player.items[-1]}!")
+        continue
+    elif direction[0] == "e":
+        player.set_room("e")
+        player.set_items(random.choice(room_items))
+        print(player.print)
+        print(f"You found a new item: {player.items[-1]}!")
+        continue
+    elif direction[0] == "w":
+        player.set_room("w")
+        player.set_items(random.choice(room_items))
+        print(player.print)
+        print(f"You found a new item: {player.items[-1]}!")
+        continue
+
 
 # Make a new player object that is currently in the 'outside' room.
 
