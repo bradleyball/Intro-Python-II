@@ -82,7 +82,7 @@ player = Player(player_name, current_room)
 while player.current_room.name != "Treasure Chamber":
 
     direction = input(
-        f"\n {player.current_room.description} \n\n\n which direction do you want to go?\n\n(N)orth\n(S)outh\n(E)ast\n(W)est\n\n>>>")
+        f"\n {player.current_room.description} \n\n\n which direction do you want to go?\n\n(N)orth\n(S)outh\n(E)ast\n(W)est\n(V)iew inventory\n(D)rop items\n\n>>>")
 
     direction = direction.lower().strip()
     print(direction)
@@ -111,6 +111,17 @@ while player.current_room.name != "Treasure Chamber":
         player.set_items(random.choice(room_items))
         print(f"You found a new item: {player.items[-1]}!")
         continue
+    elif direction[0] == "v":
+        print("\n----------------------------------------\n            Current Items")
+        for i in player.items:
+            print(f"\n{i}")
+        print("\n----------------------------------------")
+        continue
+    elif direction[0] == "d":
+        player.clear_items()
+        print("\n\nYou lost all your items\n\n")
+        continue
+
 
 print("\n\nWOOOOOHOOOO YOU WON!!!!\n\n")
 
