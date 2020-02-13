@@ -1,6 +1,9 @@
 # Write a class to hold player information, e.g. what room they are in
 # currently.
 
+from adv import room
+from room import Room
+
 
 class Player:
     def __init__(self, name, current_room):
@@ -21,64 +24,28 @@ class Player:
     def clear_items(self):
         self.items = []
 
-    def set_room_helper(self, direction, room, print):
-        self.current_room = room
-        self.print = f"\n\n\n{print}"
-
     def set_room(self, direction):
         print("made it")
         print(self.current_room)
-        if self.current_room == "outside":
+        if self.current_room.name == "Outside Cave Entrance":
             print(direction)
             if direction == "n":
-                self.set_room_helper(
-                    "n", "outside", "There is no room north of outside, try again!\nYou are in room outside")
-            if direction == "s":
-                self.set_room_helper(
-                    "s", "foyer", "You are now in room foyer")
-            if direction == "e":
-                self.set_room_helper(
-                    "e", "outside", "There is no room east of outside, try again!\nYou are in room outside")
-            if direction == "w":
-                self.set_room_helper(
-                    "w", "outside", "There is no room west of outside, try again!\nYou are in room outside")
+                self.current_room = room["foyer"]
 
-        elif self.current_room == "foyer":
+        elif self.current_room.name == "Foyer":
             if direction == "n":
-                self.set_room_helper(
-                    "n", "outside", f"You are now in the outside room ")
+                self.current_room = room["overlook"]
             if direction == "s":
-                self.set_room_helper(
-                    "s", "overlook", f"You are now in room overlook")
+                self.current_room = room["outside"]
             if direction == "e":
-                self.set_room_helper(
-                    "e", "narrow", f"You are now in the NARROW room")
-            if direction == "w":
-                self.set_room_helper(
-                    "w", "foyer", f"There is no room west of foyer\nYou are still in the foyer room")
-        elif self.current_room == "overlook":
+                self.current_room = room["narrow"]
+
+        elif self.current_room.name == "Grand Overlook":
+            if direction == "s":
+                self.current_room = room["foyer"]
+
+        elif self.current_room.name == "Narrow Passage":
             if direction == "n":
-                self.set_room_helper(
-                    "n", "foyer", f"You are in the foyer")
-            if direction == "s":
-                self.set_room_helper(
-                    "s", "overlook", "There is no room south of overlook\nYou are still in the overlook room!")
-            if direction == "e":
-                self.set_room_helper(
-                    "e", "overlook", "There is no room east of overlook\nYou are still in the overlook room!")
+                self.current_room = room['treasure']
             if direction == "w":
-                self.set_room_helper(
-                    "w", "overlook", "There is no room west of overlook\nYou are still in the overlook room!")
-        elif self.current_room == "narrow":
-            if direction == "n":
-                self.set_room_helper(
-                    "n", "treasure", "HURRRRAYYYYY YOU FOUND THE TREASURE ROOM, You Won!")
-            if direction == "s":
-                self.set_room_helper(
-                    "s", "narrow", f"There is no room south of narrow. \n You are still in room {self.current_room}")
-            if direction == "e":
-                self.set_room_helper(
-                    "e", "narrow", f"There is no room east of narrow. \n You are still in room {self.current_room}")
-            if direction == "w":
-                self.set_room_helper(
-                    "w", "narrow", f"There is no room west of narrow. \n You are still in room {self.current_room}")
+                self.current_room = room["foyer"]

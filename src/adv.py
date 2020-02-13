@@ -68,54 +68,51 @@ while not exit:
     current_room = current_room[0:2]
 
     if current_room == "ov":
-        current_room = "overlook"
+        current_room = room["overlook"]
     elif current_room[0] == "o":
-        current_room = "outside"
+        current_room = room["outside"]
     elif current_room[0] == "f":
-        current_room = "foyer"
+        current_room = room["foyer"]
 
     break
 
 player = Player(player_name, current_room)
 
 
-while player.current_room != "treasure":
+while player.current_room.name != "Treasure Chamber":
 
     direction = input(
-        f"\nYou are currently in the {player.current_room} room, which direction do you want to go?\n\n(N)orth\n(S)outh\n(E)ast\n(W)est\n>>>")
+        f"\n {player.current_room.description} \n\n\n which direction do you want to go?\n\n(N)orth\n(S)outh\n(E)ast\n(W)est\n\n>>>")
 
     direction = direction.lower().strip()
     print(direction)
     if direction == '':
         print(
-            f"\n\n result: No direction was selected! You are still in room {player.current_room} \n\n")
+            f"\n\n result: No direction was selected! You are still in room {player.current_room.name} \n\n")
         continue
 
     elif direction[0] == "n":
         player.set_room("n")
         player.set_items(random.choice(room_items))
-        print(player.print)
         print(f"You found a new item: {player.items[-1]}!")
         continue
     elif direction[0] == "s":
         player.set_room("s")
         player.set_items(random.choice(room_items))
-        print(player.print)
         print(f"You found a new item: {player.items[-1]}!")
         continue
     elif direction[0] == "e":
         player.set_room("e")
         player.set_items(random.choice(room_items))
-        print(player.print)
         print(f"You found a new item: {player.items[-1]}!")
         continue
     elif direction[0] == "w":
         player.set_room("w")
         player.set_items(random.choice(room_items))
-        print(player.print)
         print(f"You found a new item: {player.items[-1]}!")
         continue
 
+print("\n\nWOOOOOHOOOO YOU WON!!!!\n\n")
 
 # Make a new player object that is currently in the 'outside' room.
 
